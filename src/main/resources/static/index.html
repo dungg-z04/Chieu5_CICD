@@ -6,75 +6,398 @@
     <title>CuDucDung</title>
     <style>
       :root {
-        --bg: #f6f2ea;
-        --ink: #1b1b1b;
-        --accent: #d16a4a;
-        --muted: #6b6b6b;
+        --bg: #0f1216;
+        --ink: #f7f3ee;
+        --accent: #ff6b3d;
+        --accent-2: #ffd36b;
+        --muted: rgba(247, 243, 238, 0.72);
+        --card: rgba(25, 29, 36, 0.86);
+        --card-border: rgba(255, 255, 255, 0.08);
+        --glow: rgba(255, 107, 61, 0.24);
       }
       * { box-sizing: border-box; }
       body {
         margin: 0;
-        font-family: "IBM Plex Serif", "Georgia", serif;
+        font-family: "Space Grotesk", "Sora", "Avenir Next", "Segoe UI", sans-serif;
         color: var(--ink);
-        background: radial-gradient(1200px 600px at 15% 10%, #fff7ea 0%, var(--bg) 45%, #efe6d8 100%);
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
+        background:
+          radial-gradient(900px 600px at 10% 10%, rgba(255, 212, 107, 0.16), transparent 60%),
+          radial-gradient(1200px 800px at 90% 0%, rgba(255, 107, 61, 0.18), transparent 60%),
+          radial-gradient(900px 700px at 30% 90%, rgba(106, 199, 255, 0.18), transparent 60%),
+          linear-gradient(180deg, #0d1014 0%, #0f1216 40%, #11151b 100%);
+        min-height: 100svh;
+        overflow-x: hidden;
       }
-      .card {
-        width: min(860px, 92vw);
-        background: rgba(255, 255, 255, 0.78);
-        border: 1px solid #e6dac8;
-        border-radius: 16px;
-        padding: 40px 36px;
-        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+      .wrap {
+        width: min(1120px, 92vw);
+        margin: 0 auto;
+        padding: 28px 0 80px;
       }
-      h1 {
-        margin: 0 0 8px;
-        font-size: clamp(28px, 4vw, 44px);
-        letter-spacing: 0.2px;
-      }
-      p {
-        margin: 0 0 14px;
-        color: var(--muted);
-        line-height: 1.6;
-      }
-      .row {
+      header {
         display: flex;
+        align-items: center;
+        justify-content: space-between;
         gap: 16px;
+        padding: 8px 4px 22px;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        font-size: 13px;
+      }
+      .brand-badge {
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+        background: conic-gradient(from 220deg, #ffd36b, #ff6b3d, #7be4ff, #ffd36b);
+        box-shadow: 0 0 30px rgba(255, 211, 107, 0.4);
+      }
+      nav {
+        display: flex;
+        gap: 14px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      nav a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .hero {
+        display: flex;
+        gap: 28px;
         flex-wrap: wrap;
-        margin-top: 16px;
+        align-items: center;
+        padding: 18px 0 30px;
       }
-      .pill {
-        padding: 8px 14px;
-        background: #fff1e6;
-        border: 1px solid #f0d2bf;
-        border-radius: 999px;
-        font-size: 14px;
-        color: #7a3b27;
+      .hero-text {
+        flex: 1 1 420px;
       }
-      .cta {
-        display: inline-block;
-        margin-top: 12px;
-        padding: 10px 16px;
-        background: var(--accent);
-        color: #fff;
-        border-radius: 10px;
+      .hero-title {
+        font-family: "Fraunces", "Iowan Old Style", "Georgia", serif;
+        margin: 0 0 12px;
+        font-size: clamp(36px, 5vw, 62px);
+        line-height: 1.05;
+        letter-spacing: 0.3px;
+      }
+      .hero-sub {
+        margin: 0 0 20px;
+        color: var(--muted);
+        line-height: 1.7;
+        font-size: clamp(15px, 2vw, 18px);
+      }
+      .hero-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        padding: 12px 18px;
+        border-radius: 12px;
         text-decoration: none;
         font-weight: 600;
+        letter-spacing: 0.2px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .btn.primary {
+        background: linear-gradient(120deg, var(--accent), #ff4f2e);
+        color: #0b0d11;
+        box-shadow: 0 12px 30px var(--glow);
+      }
+      .btn.ghost {
+        border: 1px solid var(--card-border);
+        color: var(--ink);
+        background: rgba(255, 255, 255, 0.02);
+      }
+      .hero-card {
+        flex: 1 1 320px;
+        background: var(--card);
+        border: 1px solid var(--card-border);
+        border-radius: 20px;
+        padding: 22px;
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-card::after {
+        content: "";
+        position: absolute;
+        inset: -60% 40% auto auto;
+        width: 220px;
+        height: 220px;
+        background: radial-gradient(circle, rgba(255, 211, 107, 0.5), transparent 70%);
+        opacity: 0.65;
+        filter: blur(6px);
+      }
+      .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 14px;
+        margin-top: 16px;
+      }
+      .stat {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 14px;
+        padding: 12px;
+      }
+      .stat h3 {
+        margin: 0 0 6px;
+        font-size: 20px;
+      }
+      .stat p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .section {
+        margin-top: 28px;
+        padding: 22px;
+        background: rgba(18, 22, 28, 0.7);
+        border: 1px solid var(--card-border);
+        border-radius: 18px;
+        backdrop-filter: blur(8px);
+      }
+      .section h2 {
+        margin: 0 0 10px;
+        font-size: clamp(20px, 2.6vw, 28px);
+      }
+      .section p {
+        margin: 0 0 12px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+      .chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .chip {
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(255, 107, 61, 0.14);
+        border: 1px solid rgba(255, 107, 61, 0.35);
+        color: #ffd9cd;
+        font-size: 12px;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+      }
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        margin-top: 16px;
+      }
+      .feature {
+        padding: 16px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.02);
+      }
+      .feature h3 {
+        margin: 0 0 8px;
+        font-size: 16px;
+      }
+      .feature p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .timeline {
+        display: grid;
+        gap: 14px;
+        margin-top: 16px;
+      }
+      .step {
+        display: grid;
+        grid-template-columns: 38px 1fr;
+        gap: 12px;
+        align-items: start;
+      }
+      .step-dot {
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
+        background: linear-gradient(140deg, #7be4ff, #4f7bff);
+        box-shadow: 0 10px 24px rgba(79, 123, 255, 0.35);
+      }
+      .step h4 {
+        margin: 0 0 6px;
+        font-size: 15px;
+      }
+      .step p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      footer {
+        margin-top: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        color: var(--muted);
+        font-size: 12px;
+        flex-wrap: wrap;
+      }
+      .marquee {
+        overflow: hidden;
+        white-space: nowrap;
+        border-top: 1px solid var(--card-border);
+        border-bottom: 1px solid var(--card-border);
+        padding: 10px 0;
+        margin: 26px 0;
+        color: rgba(255, 255, 255, 0.6);
+        text-transform: uppercase;
+        letter-spacing: 1.6px;
+        font-size: 11px;
+      }
+      .marquee span {
+        display: inline-block;
+        padding-left: 100%;
+        animation: scroll 18s linear infinite;
+      }
+      .glow-orb {
+        position: absolute;
+        width: 260px;
+        height: 260px;
+        background: radial-gradient(circle, rgba(123, 228, 255, 0.35), transparent 70%);
+        right: -80px;
+        bottom: -80px;
+        filter: blur(2px);
+        opacity: 0.7;
+      }
+      @keyframes scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
+      }
+      @media (max-width: 720px) {
+        nav { display: none; }
+        .hero { padding-top: 6px; }
+        .hero-card { order: 2; }
       }
     </style>
   </head>
   <body>
-    <div class="card">
-      <h1>Xin chào từ CuDucDung</h1>
-      <p>Trang index này được tạo sẵn để bạn chạy thử ứng dụng và kiểm tra Docker.</p>
-      <div class="row">
-        <div class="pill">Spring Boot</div>
-        <div class="pill">Java 21</div>
-        <div class="pill">Docker Ready</div>
+    <div class="wrap">
+      <header>
+        <div class="brand">
+          <div class="brand-badge"></div>
+          CuDucDung • Ship Fast Studio
+        </div>
+        <nav>
+          <a href="#overview">Tong quan</a>
+          <a href="#features">Tinh nang</a>
+          <a href="#deploy">Trien khai</a>
+          <a href="#about">Ve du an</a>
+        </nav>
+      </header>
+
+      <section class="hero" id="overview">
+        <div class="hero-text">
+          <h1 class="hero-title">Sieu giao dien cho hanh trinh build va deploy cua ban.</h1>
+          <p class="hero-sub">
+            CuDucDung mang mot phong cach hoan toan moi: tao bao, gon gang, toi uu trai nghiem,
+            giup ban khoe du an va kiem tra ha tang Docker voi su tu tin.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#deploy">Bat dau trien khai</a>
+            <a class="btn ghost" href="#features">Kham pha giao dien</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <strong>Trang thai he thong</strong>
+          <p style="margin: 8px 0 0; color: var(--muted);">Pipeline da san sang — chi can mot cu bam de chay.</p>
+          <div class="stat-grid">
+            <div class="stat">
+              <h3>21</h3>
+              <p>Java LTS</p>
+            </div>
+            <div class="stat">
+              <h3>3 buoc</h3>
+              <p>Build · Push · Deploy</p>
+            </div>
+            <div class="stat">
+              <h3>99%</h3>
+              <p>On dinh pipeline</p>
+            </div>
+          </div>
+          <div class="glow-orb"></div>
+        </div>
+      </section>
+
+      <div class="marquee">
+        <span>spring boot • docker ready • github actions • deployment webhook • fast feedback loop •</span>
       </div>
-      <a class="cta" href="#">Bắt đầu</a>
+
+      <section class="section" id="features">
+        <h2>Diem nhan giao dien</h2>
+        <p>Thiet ke moi tap trung vao toc do, do ro rang va cam giac "wow" khi mo trang.</p>
+        <div class="chip-row">
+          <div class="chip">Neon Glow</div>
+          <div class="chip">Responsive</div>
+          <div class="chip">Motion Lite</div>
+          <div class="chip">Bold Typography</div>
+        </div>
+        <div class="feature-grid">
+          <div class="feature">
+            <h3>Hero tao bao</h3>
+            <p>Noi dung tap trung ngay vao thong diep gia tri va CTA ro rang.</p>
+          </div>
+          <div class="feature">
+            <h3>The thong so</h3>
+            <p>Tom tat pipeline bang cac chi so truc quan, de quet.</p>
+          </div>
+          <div class="feature">
+            <h3>Khong khi "studio"</h3>
+            <p>Gradient, glow va layout mang cam giac san pham cao cap.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="deploy">
+        <h2>Chuoi trien khai ro rang</h2>
+        <p>Di theo lo trinh ngan gon de dam bao moi lan deploy deu nhat quan.</p>
+        <div class="timeline">
+          <div class="step">
+            <div class="step-dot"></div>
+            <div>
+              <h4>Build Maven</h4>
+              <p>Dong goi nhanh, bo qua test de tang toc do khi demo.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-dot"></div>
+            <div>
+              <h4>Push Docker Image</h4>
+              <p>Day tag latest va SHA len Docker Hub cho trace ro rang.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-dot"></div>
+            <div>
+              <h4>Webhook Deploy</h4>
+              <p>Goi webhook de bat container ngay, phan hoi log day du.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <h2>CuDucDung — Studio danh cho demo toc do</h2>
+        <p>Trang nay co the dung lam landing page cho nhom hoac lop hoc, tap trung vao trai nghiem "chay la thay".</p>
+      </section>
+
+      <footer>
+        <span>© 2026 CuDucDung. Giao dien sieu cap, toc do sieu nhanh.</span>
+        <span>Version: UI-Boost v2</span>
+      </footer>
     </div>
   </body>
 </html>
